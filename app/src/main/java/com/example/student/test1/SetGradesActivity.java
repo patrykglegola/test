@@ -2,6 +2,7 @@ package com.example.student.test1;
 
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
+        import android.widget.ArrayAdapter;
 
 public class SetGradesActivity extends AppCompatActivity {
 
