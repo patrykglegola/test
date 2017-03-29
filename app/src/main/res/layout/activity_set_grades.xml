@@ -7,61 +7,17 @@
 
 
     <Button
-        android:id="@+id/countAverageGradeButton"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="82dp"
-        android:text="Gotowe" />
+        android:text="Button"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:id="@+id/gradesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/countAverageGradeButton"
+        android:layout_above="@+id/button"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <LinearLayout
-        android:id="@+id/gradeForm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/countAverageGradeButton"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:id="@+id/gradeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/grade2RB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2" />
-
-        <RadioButton
-            android:id="@+id/grade3RB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3" />
-
-        <RadioButton
-            android:id="@+id/grade4RB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4" />
-
-        <RadioButton
-            android:id="@+id/grade5RB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5" />
-
-    </LinearLayout>
-
+        android:layout_alignParentLeft="true" />
 </RelativeLayout>
