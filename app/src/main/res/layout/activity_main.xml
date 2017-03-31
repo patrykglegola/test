@@ -89,4 +89,35 @@
         android:layout_below="@+id/amountOfGradesET"
         android:text="Oceny" />
 
+    <TextView
+        android:id="@+id/averageGradeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/gradesButton"
+        android:padding="5dp"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/gradeOKButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Super :)"
+        android:visibility="invisible"
+        android:layout_below="@+id/averageGradeTV"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/gradeNotOKButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/gradeOKButton"
+        android:text="Tym razem mi nie poszło"
+        android:visibility="invisible" />
+
 </RelativeLayout>

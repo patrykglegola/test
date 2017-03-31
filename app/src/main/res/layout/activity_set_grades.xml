@@ -9,18 +9,17 @@
         android:id="@+id/gradesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
         android:layout_alignParentStart="true"
 
         android:layout_alignParentTop="true" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/readyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/gradesList"
+        android:text="Gotowe" />
 
 
 </RelativeLayout>

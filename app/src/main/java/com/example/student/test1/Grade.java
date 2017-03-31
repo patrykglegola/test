@@ -26,4 +26,11 @@ class Grade {
     public int getId() {
         return id;
     }
+
+    public boolean hasValue() {
+        if (value>0)
+                return true;
+        else
+            return false;
+    }
 }

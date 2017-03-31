@@ -52,7 +52,7 @@ public class GradesAdapter extends ArrayAdapter<Grade> {
                         }
                     }
             );
-           // gradesRadioGroup.setTag(gradesList.get(position));
+//            gradesRadioGroup.setTag(gradesList.get(position));
         }
         else {
             view = gradeView;
