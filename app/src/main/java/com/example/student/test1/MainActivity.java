@@ -124,41 +124,55 @@ public class MainActivity extends AppCompatActivity {
 
         if(result==RESULT_OK)
         {
-            Bundle gradesData = data.getExtras();
-            double averageGrade = gradesData.getDouble("averageGrade");
-            nameET.setEnabled(false);
-            surnameET.setEnabled(false);
-            amountOfGradesET.setEnabled(false);
-            gradesButton.setVisibility(View.INVISIBLE);
-            averageGradeTV.setText("Twoja średnia to: "+maxTwoNumbersAfterDot(averageGrade));
-            averageGradeTV.setVisibility(View.VISIBLE);
+            double averageGrade = prepareViewAfterAction(data);
             if(averageGrade>=3) {
                 gradeOKButton.setVisibility(View.VISIBLE);
-                gradeOKButton.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                shortToastMessage("Gratulacje! Otrzymujesz zaliczenie!");
-                                finish();
-                            }
-                        }
-                );
+                gradeAbove3();
             }
             else {
 
-                gradeNotOKButton.setVisibility(View.VISIBLE);
-                gradeNotOKButton.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                shortToastMessage("Wysyłam podanie o zaliczenie warunkowe");
-                                finish();
-                            }
-                        }
-                );
+                gradeBelow3();
             }
 
         }
+    }
+
+    //
+    private void gradeBelow3() {
+        gradeNotOKButton.setVisibility(View.VISIBLE);
+        gradeNotOKButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shortToastMessage("Wysyłam podanie o zaliczenie warunkowe");
+                        finish();
+                    }
+                }
+        );
+    }
+
+    private void gradeAbove3() {
+        gradeOKButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shortToastMessage("Gratulacje! Otrzymujesz zaliczenie!");
+                        finish();
+                    }
+                }
+        );
+    }
+
+    private double prepareViewAfterAction(Intent data) {
+        Bundle gradesData = data.getExtras();
+        double averageGrade = gradesData.getDouble("averageGrade");
+        nameET.setEnabled(false);
+        surnameET.setEnabled(false);
+        amountOfGradesET.setEnabled(false);
+        gradesButton.setVisibility(View.INVISIBLE);
+        averageGradeTV.setText("Twoja średnia to: "+maxTwoNumbersAfterDot(averageGrade));
+        averageGradeTV.setVisibility(View.VISIBLE);
+        return averageGrade;
     }
 
 

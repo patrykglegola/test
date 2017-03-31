@@ -29,51 +29,77 @@ public class GradesAdapter extends ArrayAdapter<Grade> {
     public View getView(final int position, View gradeView, ViewGroup parent) {
 
         View view = null;
+        //tworzenie nowego wiersza
         if(gradeView==null) {
+            //utworzenie layout na podstawie pliku XML
             LayoutInflater gradeForm = context.getLayoutInflater();
             view = gradeForm.inflate(R.layout.grade_layout, parent, false);
 
+            //obsługa radio buttonów:
             RadioGroup gradesRadioGroup = (RadioGroup) view.findViewById(R.id.gradesRBGroup);
             gradesRadioGroup.setTag(gradesList.get(position));
-            gradesRadioGroup.setOnCheckedChangeListener(
-                    new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                            Grade element = (Grade) group.getTag();
-                            if(checkedId== R.id.grade2RB)
-                                element.setValue(2);
-                            else if (checkedId==R.id.grade3RB)
-                                element.setValue(3);
-                            else if (checkedId== R.id.grade4RB)
-                                element.setValue(4);
-                            else if (checkedId== R.id.grade5RB)
-                                element.setValue(5);
-
-                        }
-                    }
-            );
-//            gradesRadioGroup.setTag(gradesList.get(position));
+            setRadioValues(gradesRadioGroup, position);
+            setRadioButtonListener(gradesRadioGroup);
         }
         else {
             view = gradeView;
             RadioGroup gradesRadioGroup = (RadioGroup) view.findViewById(R.id.gradesRBGroup);
             gradesRadioGroup.setTag(gradesList.get(position));
         }
+        //ustawienie nazw ocen do widoku
         TextView label = (TextView) view.findViewById(R.id.gradeLabel);
         label.setText("Ocena "+(position+1));
+
+        //zaznaczenie odpowiedniego przycisku na podstawie ocen
         RadioGroup gradesRadioGroup = (RadioGroup) view.findViewById(R.id.gradesRBGroup);
-        int value = gradesList.get(position).getValue();
-        if (value == 2) {
-            gradesRadioGroup.check(R.id.grade2RB);
-        } else if (value == 3) {
-            gradesRadioGroup.check(R.id.grade3RB);
-        } else if (value == 4) {
-            gradesRadioGroup.check(R.id.grade4RB);
-        } else if (value == 5) {
-            gradesRadioGroup.check(R.id.grade5RB);
-        } else
-            gradesRadioGroup.check(-1);
+        setRadioValues(gradesRadioGroup, position);
+
 
         return view;
     }
+
+    //obsługa zmiany zaznaczonego radio buttonu:
+    private void setRadioButtonListener(RadioGroup gradesRadioGroup) {
+        gradesRadioGroup.setOnCheckedChangeListener(
+                new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        setGradeValuesFromRB(group, checkedId);
+
+                    }
+                }
+        );
+    }
+
+    //metoda ustawia wartości ocen zależnie od wybranej konfiguracji radio buttonów
+    private void setGradeValuesFromRB(RadioGroup group, @IdRes int checkedId) {
+        Grade element = (Grade) group.getTag();
+        if(checkedId== R.id.grade2RB)
+            element.setValue(2);
+        else if (checkedId==R.id.grade3RB)
+            element.setValue(3);
+        else if (checkedId== R.id.grade4RB)
+            element.setValue(4);
+        else if (checkedId== R.id.grade5RB)
+            element.setValue(5);
+    }
+
+    //jeśli mamy wprowadzone dane o ocenach, metoda ustawia radio buttony w odpowiednich miejscach
+    public void setRadioValues(RadioGroup group, int position){
+        int value = gradesList.get(position).getValue();
+        if (value == 2) {
+            group.check(R.id.grade2RB);
+        } else if (value == 3) {
+            group.check(R.id.grade3RB);
+        } else if (value == 4) {
+            group.check(R.id.grade4RB);
+        } else if (value == 5) {
+            group.check(R.id.grade5RB);
+        } else
+            group.check(-1);
+
+    }
+
+
+
 }

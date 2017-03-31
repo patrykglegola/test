@@ -1,18 +1,10 @@
 package com.example.student.test1;
 
-        import android.app.Activity;
-        import android.content.Context;
         import android.content.Intent;
         import android.os.Bundle;
-        import android.support.annotation.IdRes;
-        import android.support.annotation.LayoutRes;
-        import android.support.annotation.NonNull;
-        import android.support.v7.app.ActionBar;
         import android.support.v7.app.AppCompatActivity;
         import android.view.View;
-        import android.widget.ArrayAdapter;
         import android.widget.Button;
-        import android.widget.LinearLayout;
         import android.widget.ListView;
         import android.widget.Toast;
 
@@ -20,41 +12,58 @@ package com.example.student.test1;
 
 public class SetGradesActivity extends AppCompatActivity {
 
-    ListView setGradesList;
+    ListView gradesListLV;
     private ArrayList<Grade> gradesData;
     Button readyButton;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_grades);
-        setGradesList = (ListView) findViewById(R.id.gradesList);
+        gradesListLV = (ListView) findViewById(R.id.gradesList);
         readyButton = (Button) findViewById(R.id.readyButton);
 
+        //stworzenie listy obiektów ocen
         final int amountOfGrades = getIntent().getIntExtra("amountOfGrades", 0);
         gradesData = new ArrayList<Grade>();
         for (int i = 0; i < amountOfGrades; i++) {
             gradesData.add(new Grade(i));
         }
-        GradesAdapter adapter = new GradesAdapter(this, gradesData);
-        setGradesList.setAdapter(adapter);
 
+        setGradeAdapter();
+        readyButtonListener();
+    }
+
+
+    //załączenie adaptera
+    private void setGradeAdapter() {
+        GradesAdapter adapter = new GradesAdapter(this, gradesData);
+        gradesListLV.setAdapter(adapter);
+    }
+
+    private void readyButtonListener() {
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (allGradesHaveValue()) {
-                    Bundle gradesData = new Bundle();
-                    gradesData.putDouble("averageGrade", calculateAverageGrade(amountOfGrades));
-                    Intent gradesOK=new Intent();
-                    gradesOK.putExtras(gradesData);
-                    setResult(RESULT_OK, gradesOK);
-                    finish();
-                }
-                else
-                    shortToastMessage("Wprowadź wszystkie oceny");
+                readyButtonClick();
             }
         });
+    }
+
+    //obsługa wciśnięcia przycisku "Gotowe":
+    private void readyButtonClick() {
+        if (allGradesHaveValue()) {
+            Bundle gradesData = new Bundle();
+            gradesData.putDouble("averageGrade", calculateAverageGrade());
+            Intent gradesOK=new Intent();
+            gradesOK.putExtras(gradesData);
+            setResult(RESULT_OK, gradesOK);
+            finish();
+        }
+        else
+            shortToastMessage("Wprowadź wszystkie oceny");
     }
 
 
@@ -67,11 +76,11 @@ public class SetGradesActivity extends AppCompatActivity {
 
     }
 
-    private double calculateAverageGrade(int amountOfGrades) {
+    private double calculateAverageGrade() {
         int sum =0;
         for(Grade grade : gradesData)
             sum+=grade.getValue();
-        return (double)sum/amountOfGrades;
+        return (double)sum/gradesData.size();
     }
 
     //wyświetla komunikat toast o podanej treści w bieżącym oknie
